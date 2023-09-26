@@ -4,7 +4,10 @@ import 'dart:io';
 // import 'package:selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
 // import 'package:selinap/scan/ui/screens/home/home_screen.dart';
 
+import 'package:provider/provider.dart';
 import 'package:selinap/app_theme.dart';
+import 'package:selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
+import 'package:selinap/splash_page.dart';
 import 'package:selinap/tema_app/fitness_app_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +18,8 @@ void main() async {
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
-  ]).then((_) => runApp(MyApp()));
+  ]);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,15 +34,18 @@ class MyApp extends StatelessWidget {
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-    return MaterialApp(
-      title: 'Flutter UI',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: AppTheme.textTheme,
-        platform: TargetPlatform.iOS,
+    return ChangeNotifierProvider(
+      create: (context) => ScannerProvider(),
+      child: MaterialApp(
+        title: 'Flutter UI',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          textTheme: AppTheme.textTheme,
+          platform: TargetPlatform.iOS,
+        ),
+        home: SplashPage(),
       ),
-      home: FitnessAppHomeScreen(),
     );
   }
 }

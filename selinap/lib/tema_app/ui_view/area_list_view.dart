@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selinap/pelanggaran_page.dart';
 
 import '../fitness_app_theme.dart';
 
@@ -74,6 +75,15 @@ class _AreaListViewState extends State<AreaListView>
                         imagepath: areaListData[index],
                         animation: animation,
                         animationController: animationController!,
+                        onTap: index == 1
+                            ? () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => PelanggaranPage(),
+                                  ),
+                                );
+                              }
+                            : () {},
                       );
                     },
                   ),
@@ -98,10 +108,12 @@ class AreaView extends StatelessWidget {
     Key? key,
     this.imagepath,
     this.animationController,
+    this.onTap,
     this.animation,
   }) : super(key: key);
 
   final String? imagepath;
+  final VoidCallback? onTap;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -138,7 +150,7 @@ class AreaView extends StatelessWidget {
                   hoverColor: Colors.transparent,
                   borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   splashColor: FitnessAppTheme.nearlyDarkBlue.withOpacity(0.2),
-                  onTap: () {},
+                  onTap: onTap,
                   child: Column(
                     children: <Widget>[
                       Padding(
