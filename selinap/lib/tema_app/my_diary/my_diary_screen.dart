@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:selinap/tema_app/ui_view/area_list_view.dart';
 //import 'package:selinap/tema_app/ui_view/glass_view.dart';
 import 'package:selinap/tema_app/ui_view/mediterranean_diet_view.dart';
+import 'package:selinap/tema_app/ui_view/running_view.dart';
 import 'package:selinap/tema_app/ui_view/title_view.dart';
 import 'package:selinap/tema_app/fitness_app_theme.dart';
 //import 'package:selinap/tema_app/my_diary/meals_list_view.dart';
@@ -95,6 +96,17 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     //     animationController: widget.animationController!,
     //   ),
     // );
+
+    listViews.add(
+      RunningView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+
     listViews.add(
       AreaListView(
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -282,7 +294,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
                                   style: TextStyle(
                                     fontFamily: FitnessAppTheme.fontName,
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
+                                    fontSize: 18 + 6 - 6 * topBarOpacity,
                                     letterSpacing: 1.2,
                                     color: Color(0xFF2633C5),
                                   ),
@@ -306,7 +318,6 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
                               ),
                               child: Row(
                                 children: <Widget>[
-                                  
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8),
                                     child: Icon(

@@ -53,8 +53,8 @@ class RunningView extends StatelessWidget {
                                   height: 74,
                                   child: AspectRatio(
                                     aspectRatio: 1.714,
-                                    child: Image.asset(
-                                        "assets/fitness_app/back.png"),
+                                    // child: Image.asset(
+                                    //     "assets/fitness_app/back.png"),
                                   ),
                                 ),
                               ),
@@ -65,12 +65,12 @@ class RunningView extends StatelessWidget {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                          left: 100,
+                                          left: 90,
                                           right: 16,
                                           top: 16,
                                         ),
                                         child: Text(
-                                          "You're doing great!",
+                                          "Lihat Laporan Pelanggaran!",
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontFamily:
@@ -87,13 +87,13 @@ class RunningView extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                      left: 100,
+                                      left: 90,
                                       bottom: 12,
                                       top: 4,
                                       right: 16,
                                     ),
                                     child: Text(
-                                      "Keep it up\nand stick to your plan!",
+                                      "Lihat Data\nSemua Pelanggaran Siswa!",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontFamily: FitnessAppTheme.fontName,
@@ -112,12 +112,12 @@ class RunningView extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: -16,
-                        left: 0,
+                        top: 23,
+                        left: -10,
                         child: SizedBox(
                           width: 110,
-                          height: 110,
-                          child: Image.asset("assets/fitness_app/runner.png"),
+                          height: 60,
+                          child: Image.asset("assets/fitness_app/area2.png"),
                         ),
                       )
                     ],
