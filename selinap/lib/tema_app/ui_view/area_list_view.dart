@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:selinap/pelajar_page.dart';
 import 'package:selinap/pelanggaran_page.dart';
 
 import '../fitness_app_theme.dart';
@@ -68,19 +70,39 @@ class _AreaListViewState extends State<AreaListView>
                         ),
                       );
                       animationController?.forward();
+
                       return AreaView(
                         imagepath: areaListData[index],
                         animation: animation,
                         animationController: animationController!,
-                        onTap: index == 1
-                            ? () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => PelanggaranPage(),
-                                  ),
-                                );
-                              }
-                            : () {},
+                        // onTap: index == 0
+                        //     ? () {
+                        //         Navigator.of(context).push(
+                        //           MaterialPageRoute(
+                        //             builder: (context) => PelajarPage(),
+                        //           ),
+                        //         );
+                        //       }
+                        //     :
+                        //      () {},
+
+                        onTap: () {
+                          if (index == 0) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PelajarPage(),
+                              ),
+                            );
+                          } else if (index == 1) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PelanggaranPage(),
+                              ),
+                            );
+                          } else {
+                            print("error");
+                          }
+                        },
                       );
                     },
                   ),

@@ -1,1 +1,1 @@
-const BaseURL = "https://point.sterida.my.id/api";
+const BaseURL = "https://point.sterida.my.id/api/";
