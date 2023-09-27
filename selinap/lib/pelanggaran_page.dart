@@ -48,12 +48,20 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
     String deskripsi_pelanggaran,
     String poin_pelanggaran,
   ) async {
+    // var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
+    // var request = http.MultipartRequest("POST", uri);
+    // request.fields['nama_pelanggaran'] = nama_pelanggaran;
+    // request.fields['deskripsi_pelanggaran'] = deskripsi_pelanggaran;
+    // request.fields['poin_pelanggaran'] = poin_pelanggaran;
+    // var response = await request.send();
+
+    var response;
     var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
-    var request = http.MultipartRequest("POST", uri);
-    request.fields['nama_pelanggaran'] = nama_pelanggaran;
-    request.fields['deskripsi_pelanggaran'] = deskripsi_pelanggaran;
-    request.fields['poin_pelanggaran'] = poin_pelanggaran;
-    var response = await request.send();
+    response = await http.post(uri, body: {
+      "nama_pelanggaran": nama_pelanggaran,
+      "deskripsi_pelanggaran": deskripsi_pelanggaran,
+      "poin_pelanggaran": poin_pelanggaran,
+    });
 
     if (response.statusCode == 200) {
       getData('');

@@ -296,7 +296,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
                                     fontWeight: FontWeight.w700,
                                     fontSize: 18 + 6 - 6 * topBarOpacity,
                                     letterSpacing: 1.2,
-                                    color: Color(0xFF2633C5),
+                                    color: FitnessAppTheme.nearlyDarkBlue,
                                   ),
                                 ),
                               ),

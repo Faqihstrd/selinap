@@ -303,7 +303,8 @@ class MediterranesnDietView extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 10,
                                               letterSpacing: 0.0,
-                                              color: FitnessAppTheme.grey
+                                              color: FitnessAppTheme
+                                                  .nearlyDarkBlue
                                                   .withOpacity(0.5),
                                             ),
                                           ),
@@ -317,8 +318,8 @@ class MediterranesnDietView extends StatelessWidget {
                                       painter: CurvePainter(
                                           colors: [
                                             FitnessAppTheme.nearlyDarkBlue,
-                                            HexColor("#8A98E8"),
-                                            HexColor("#8A98E8")
+                                            FitnessAppTheme.nearlyDarkBlue,
+                                            FitnessAppTheme.nearlyDarkBlue,
                                           ],
                                           angle: 140 +
                                               (360 - 140) *
