@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 import 'package:selinap/pelajar_page.dart';
 import 'package:selinap/pelanggaran_page.dart';
 
@@ -57,6 +57,12 @@ class _AreaListViewState extends State<AreaListView>
                       left: 16, right: 16, top: 16, bottom: 16),
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 24.0,
+                    crossAxisSpacing: 24.0,
+                    //childAspectRatio: 1.0,
+                  ),
                   children: List<Widget>.generate(
                     areaListData.length,
                     (int index) {
@@ -90,13 +96,13 @@ class _AreaListViewState extends State<AreaListView>
                           if (index == 0) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => PelajarPage(),
+                                builder: (context) => const PelajarPage(),
                               ),
                             );
                           } else if (index == 1) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => PelanggaranPage(),
+                                builder: (context) => const PelanggaranPage(),
                               ),
                             );
                           } else {
@@ -105,12 +111,6 @@ class _AreaListViewState extends State<AreaListView>
                         },
                       );
                     },
-                  ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 24.0,
-                    crossAxisSpacing: 24.0,
-                    //childAspectRatio: 1.0,
                   ),
                 ),
               ),

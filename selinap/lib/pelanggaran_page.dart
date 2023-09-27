@@ -27,7 +27,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
   }
 
   Future getData(String search) async {
-    var response;
+    http.Response response;
     var uri = Uri.parse('$BaseURL/pelanggaran/search.php');
     response = await http.post(uri, body: {
       "search": search,
@@ -120,7 +120,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
     TextEditingController ctrlPoint = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return AlertDialog(
-        title: Text('Tambah Data'),
+        title: const Text('Tambah Data'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                   label: Text('Deskripsi Pelanggaran'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -148,10 +148,10 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                   label: Text('Point Pelanggaran'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
@@ -171,11 +171,11 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
     });
   }
 
-  Future deleteData(Int? id_pelanggaran) async {
-    var response;
+  Future deleteData(Int? idPelanggaran) async {
+    http.Response response;
     var uri = Uri.parse('$BaseURL/pelanggaran/delete.php');
     response = await http.post(uri, body: {
-      "id ": id_pelanggaran,
+      "id ": idPelanggaran,
     });
     if (response.statusCode == 200) {
       getData('');
@@ -197,7 +197,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
 
   AlertDialog _alertDialogDelete(Map<String, dynamic> data) {
     return AlertDialog(
-      title: Text('Delete Data'),
+      title: const Text('Delete Data'),
       content: Text('Apakah anda ingin menghapus ${data['nama']}'),
       actions: [
         TextButton(
@@ -228,7 +228,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                 return _alertDialog();
               });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -256,7 +256,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                       //       return _alertDialogUpdate(data[index]);
                       //     });
                     },
-                    icon: Icon(Icons.edit)),
+                    icon: const Icon(Icons.edit)),
                 IconButton(
                     onPressed: () {
                       showDialog<void>(
@@ -265,7 +265,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                             return _alertDialogDelete(data[index]);
                           });
                     },
-                    icon: Icon(Icons.delete)),
+                    icon: const Icon(Icons.delete)),
               ],
             ),
           );

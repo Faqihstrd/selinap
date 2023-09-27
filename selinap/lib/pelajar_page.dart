@@ -2,11 +2,10 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:selinap/const.dart';
-import 'package:selinap/piket.dart';
 
 class PelajarPage extends StatefulWidget {
   const PelajarPage({super.key});
@@ -25,7 +24,7 @@ class _PelajarPageState extends State<PelajarPage> {
   }
 
   Future getData(String search) async {
-    var response;
+    http.Response response;
     var uri = Uri.parse('$BaseURL/pelajar/search.php');
     response = await http.post(uri, body: {
       "search": search,
@@ -46,15 +45,15 @@ class _PelajarPageState extends State<PelajarPage> {
 
   //MENAMBAHKAN DATA
   Future addData(
-    String nama_pelajar,
-    String deskripsi_pelajar,
-    String poin_pelajar,
+    String namaPelajar,
+    String deskripsiPelajar,
+    String poinPelajar,
   ) async {
     var uri = Uri.parse('$BaseURL/pelajar/insert.php');
     var request = http.MultipartRequest("POST", uri);
-    request.fields['nama_pelajar'] = nama_pelajar;
-    request.fields['deskripsi_pelajar'] = deskripsi_pelajar;
-    request.fields['poin_pelajar'] = poin_pelajar;
+    request.fields['nama_pelajar'] = namaPelajar;
+    request.fields['deskripsi_pelajar'] = deskripsiPelajar;
+    request.fields['poin_pelajar'] = poinPelajar;
     var response = await request.send();
 
     if (response.statusCode == 200) {
@@ -81,7 +80,7 @@ class _PelajarPageState extends State<PelajarPage> {
     TextEditingController ctrlPoint = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return AlertDialog(
-        title: Text('Tambah Data'),
+        title: const Text('Tambah Data'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -99,7 +98,7 @@ class _PelajarPageState extends State<PelajarPage> {
                   label: Text('Point pelajar'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -109,10 +108,10 @@ class _PelajarPageState extends State<PelajarPage> {
                   label: Text('Point pelajar'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
@@ -132,11 +131,11 @@ class _PelajarPageState extends State<PelajarPage> {
     });
   }
 
-  Future deleteData(Int? id_pelajar) async {
-    var response;
+  Future deleteData(Int? idPelajar) async {
+    http.Response response;
     var uri = Uri.parse('$BaseURL/pelajar/delete.php');
     response = await http.post(uri, body: {
-      "id ": id_pelajar,
+      "id ": idPelajar,
     });
     if (response.statusCode == 200) {
       getData('');
@@ -158,7 +157,7 @@ class _PelajarPageState extends State<PelajarPage> {
 
   AlertDialog _alertDialogDelete(Map<String, dynamic> data) {
     return AlertDialog(
-      title: Text('Delete Data'),
+      title: const Text('Delete Data'),
       content: Text('Apakah anda ingin menghapus ${data['nama']}'),
       actions: [
         TextButton(
@@ -189,7 +188,7 @@ class _PelajarPageState extends State<PelajarPage> {
                 return _alertDialog();
               });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -215,11 +214,11 @@ class _PelajarPageState extends State<PelajarPage> {
               children: [
                 IconButton(
                     onPressed: () {
-                      showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return PiketDialog();
-                          });
+                    //  showDialog<void>(
+                     //     context: context,
+             //             builder: (BuildContext context) {
+                         //   return PiketDialog();
+                //          });
 
                       // showDialog<void>(
                       //     context: context,
@@ -227,7 +226,7 @@ class _PelajarPageState extends State<PelajarPage> {
                       //       return _alertDialogUpdate(data[index]);
                       //     });
                     },
-                    icon: Icon(Icons.select_all)),
+                    icon: const Icon(Icons.select_all)),
               ],
             ),
           );
