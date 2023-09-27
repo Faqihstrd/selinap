@@ -47,6 +47,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
   }
 
   //MENAMBAHKAN DATA
+<<<<<<< HEAD
   // Future addData(
   //   String nama_pelanggaran,
   //   String deskripsi_pelanggaran,
@@ -58,6 +59,27 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
   //   request.fields['deskripsi_pelanggaran'] = deskripsi_pelanggaran;
   //   request.fields['poin_pelanggaran'] = poin_pelanggaran;
   //   var response = await request.send();
+=======
+  Future addData(
+    String nama_pelanggaran,
+    String deskripsi_pelanggaran,
+    String poin_pelanggaran,
+  ) async {
+    // var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
+    // var request = http.MultipartRequest("POST", uri);
+    // request.fields['nama_pelanggaran'] = nama_pelanggaran;
+    // request.fields['deskripsi_pelanggaran'] = deskripsi_pelanggaran;
+    // request.fields['poin_pelanggaran'] = poin_pelanggaran;
+    // var response = await request.send();
+
+    var response;
+    var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
+    response = await http.post(uri, body: {
+      "nama_pelanggaran": nama_pelanggaran,
+      "deskripsi_pelanggaran": deskripsi_pelanggaran,
+      "poin_pelanggaran": poin_pelanggaran,
+    });
+>>>>>>> a269ac81d9b0780000028a79fbfe0392405dac49
 
   //   if (response.statusCode == 200) {
   //     getData('');

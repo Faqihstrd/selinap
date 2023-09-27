@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:selinap/tema_app/fitness_app_theme.dart';
 import 'package:selinap/tema_app/models/tabIcon_data.dart';
-import 'package:selinap/main.dart';
+//import 'package:selinap/main.dart';
 import 'package:flutter/material.dart';
 import 'package:selinap/scan/ui/screens/home/home_screen.dart';
 
@@ -129,7 +129,7 @@ class _BottomBarViewState extends State<BottomBarView>
                         gradient: LinearGradient(
                             colors: [
                               FitnessAppTheme.nearlyDarkBlue,
-                              HexColor('#6A88E5'),
+                              FitnessAppTheme.nearlyDarkBlue,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight),
@@ -152,7 +152,10 @@ class _BottomBarViewState extends State<BottomBarView>
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen(animationController: animationController,)),
+                                  builder: (context) => HomeScreen(
+                                        animationController:
+                                            animationController,
+                                      )),
                             );
                           },
                           child: Icon(

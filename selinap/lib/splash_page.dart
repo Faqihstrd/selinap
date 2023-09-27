@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selinap/tema_app/fitness_app_home_screen.dart';
+import 'package:selinap/login/login.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -17,7 +17,8 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => FitnessAppHomeScreen(),
+          // builder: (context) => FitnessAppHomeScreen(),
+          builder: (context) => Login(),
         ),
       );
     });

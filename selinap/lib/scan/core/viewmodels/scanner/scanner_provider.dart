@@ -42,7 +42,8 @@ class ScannerProvider extends ChangeNotifier {
 
   /// Instance provider
   static ScannerProvider instance(BuildContext context) =>
-      Provider.of(context, listen: false);
+      //Provider.of(context, listen: false);
+      Provider.of<ScannerProvider>(context, listen: false);
 
   void scan(ImageSource source) async {
     final _picker = ImagePicker();

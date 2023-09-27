@@ -68,7 +68,7 @@ class TitleView extends StatelessWidget {
                                 fontWeight: FontWeight.normal,
                                 fontSize: 16,
                                 letterSpacing: 0.5,
-                                color: Color(0xFF2633C5),
+                                color: FitnessAppTheme.nearlyDarkBlue,
                               ),
                             ),
                             SizedBox(
