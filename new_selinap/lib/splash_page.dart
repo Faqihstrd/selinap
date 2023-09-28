@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:new_selinap/database/user_local.dart';
 import 'package:new_selinap/login/login.dart';
+import 'package:new_selinap/tema_app/fitness_app_home_screen.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -9,17 +11,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final local = UserLocal();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           // builder: (context) => FitnessAppHomeScreen(),
-          builder: (context) => const Login(),
+          builder: (context) =>
+              local.isLogin ? const FitnessAppHomeScreen() : const Login(),
         ),
+        (r) => false,
       );
     });
   }
@@ -30,8 +35,8 @@ class _SplashPageState extends State<SplashPage> {
       body: Center(
         child: Image.asset(
           "assets/images/logo.png",
-          width: 200,
-          height: 300,
+          width: 300,
+          height: 400,
         ),
       ),
     );

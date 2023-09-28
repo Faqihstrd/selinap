@@ -1,11 +1,16 @@
 import 'dart:io';
+
+// import 'package:selinap/scan/ui/screens/home/home_screen.dart';
+
 import 'package:provider/provider.dart';
 import 'package:selinap/app_theme.dart';
 import 'package:selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
 import 'package:selinap/splash_page.dart';
+import 'package:selinap/tema_app/fitness_app_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:ui';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

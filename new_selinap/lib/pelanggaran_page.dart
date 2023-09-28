@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -46,50 +44,19 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
     }
   }
 
-  //MENAMBAHKAN DATA
-  // Future addData(
-  //   String nama_pelanggaran,
-  //   String deskripsi_pelanggaran,
-  //   String poin_pelanggaran,
-  // ) async {
-  //   var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
-  //   var request = http.MultipartRequest("POST", uri);
-  //   request.fields['nama_pelanggaran'] = nama_pelanggaran;
-  //   request.fields['deskripsi_pelanggaran'] = deskripsi_pelanggaran;
-  //   request.fields['poin_pelanggaran'] = poin_pelanggaran;
-  //   var response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  //     getData('');
-  //     return Fluttertoast.showToast(
-  //       backgroundColor: Colors.green,
-  //       textColor: Colors.white,
-  //       msg: 'Data Berhasil Ditambahkan',
-  //       toastLength: Toast.LENGTH_SHORT,
-  //     );
-  //   } else {
-  //     return Fluttertoast.showToast(
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       msg: 'Something went wrong ${response.statusCode}',
-  //       toastLength: Toast.LENGTH_SHORT,
-  //     );
-  //   }
-  // }
-
   Future addData() async {
     // var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
     String phpurl = "$BaseURL/pelanggaran/insert.php";
     var res = await http.post(Uri.parse(phpurl), body: {
       "nama_pelanggaran": ctrlNama.text,
-      "deskirpsi_pelanggaran": ctrlDescPelanggaran.text,
+      "deskripsi_pelanggaran": ctrlDescPelanggaran.text,
       "poin_pelanggaran": ctrlPoint.text,
     });
 
+    var result = json.decode(res.body); //decoding json to array
     if (res.statusCode == 200) {
       print(res.body); //print raw response on console
-      var data = json.decode(res.body); //decoding json to array
-      if (data["error"]) {
+      if (result["error"]) {
         setState(() {
           //refresh the UI when error is recieved from server
           //    sending = false;
@@ -108,19 +75,54 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
       return Fluttertoast.showToast(
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        msg: 'Something went wrong ${res.statusCode}',
+        msg: 'Error: ${result['message']}',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
+
+  Future updateData(String id) async {
+    // var uri = Uri.parse('$BaseURL/pelanggaran/insert.php');
+    String phpurl = "$BaseURL/pelanggaran/update.php";
+    var res = await http.post(Uri.parse(phpurl), body: {
+      "id": id,
+      "nama_pelanggaran": ctrlNama.text,
+      "deskripsi_pelanggaran": ctrlDescPelanggaran.text,
+      "poin_pelanggaran": ctrlPoint.text,
+    });
+
+    var result = json.decode(res.body); //decoding json to array
+    if (res.statusCode == 200) {
+      print(res.body); //print raw response on console
+      if (result["error"]) {
+        setState(() {
+          //refresh the UI when error is recieved from server
+          //    sending = false;
+          //     error = true;
+          //     msg = data["message"]; //error message from server
+        });
+      } else {
+        return Fluttertoast.showToast(
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          msg: result['message'],
+          toastLength: Toast.LENGTH_SHORT,
+        );
+      }
+    } else {
+      return Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: 'Error: ${result['message']}',
         toastLength: Toast.LENGTH_SHORT,
       );
     }
   }
 
   StatefulBuilder _alertDialog() {
-    TextEditingController ctrlNama = TextEditingController();
-    TextEditingController ctrlPelanggaran = TextEditingController();
-    TextEditingController ctrlPoint = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return AlertDialog(
-        title: const Text('Tambah Data'),
+        title: Text('Tambah Data'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -132,13 +134,13 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                 ),
               ),
               TextField(
-                controller: ctrlPelanggaran,
+                controller: ctrlDescPelanggaran,
                 // keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   label: Text('Deskripsi Pelanggaran'),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
               TextField(
@@ -148,10 +150,10 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                   label: Text('Point Pelanggaran'),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
             ],
@@ -171,11 +173,68 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
     });
   }
 
-  Future deleteData(Int? idPelanggaran) async {
-    http.Response response;
+  StatefulBuilder _alertDialogUpdate(Map<String, dynamic> item) {
+    ctrlNama.text = item['nama_pelanggaran'];
+    ctrlDescPelanggaran.text = item['deskripsi_pelanggaran'];
+    ctrlPoint.text = item['poin_pelanggaran'];
+    return StatefulBuilder(builder: (context, setState) {
+      return AlertDialog(
+        title: Text('Ubah Data'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: ctrlNama,
+                decoration: const InputDecoration(
+                  label: Text('Nama Pelanggaran'),
+                ),
+              ),
+              TextField(
+                controller: ctrlDescPelanggaran,
+                // keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  label: Text('Deskripsi Pelanggaran'),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: ctrlPoint,
+                // keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  label: Text('Point Pelanggaran'),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              updateData(item['id_pelanggaran']);
+              getData('');
+              Navigator.of(context).pop();
+            },
+            child: const Text('Simpan'),
+          ),
+        ],
+      );
+    });
+  }
+
+  Future deleteData(String? id_pelanggaran) async {
+    var response;
     var uri = Uri.parse('$BaseURL/pelanggaran/delete.php');
     response = await http.post(uri, body: {
-      "id ": idPelanggaran,
+      "id_pelanggaran": id_pelanggaran,
     });
     if (response.statusCode == 200) {
       getData('');
@@ -197,7 +256,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
 
   AlertDialog _alertDialogDelete(Map<String, dynamic> data) {
     return AlertDialog(
-      title: const Text('Delete Data'),
+      title: Text('Delete Data'),
       content: Text('Apakah anda ingin menghapus ${data['nama']}'),
       actions: [
         TextButton(
@@ -208,7 +267,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
         ),
         TextButton(
           onPressed: () {
-            deleteData(data['id_pelanggaran ']);
+            deleteData(data['id_pelanggaran']);
             Navigator.of(context).pop();
           },
           child: const Text('Hapus'),
@@ -228,7 +287,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                 return _alertDialog();
               });
         },
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -250,13 +309,13 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
               children: [
                 IconButton(
                     onPressed: () {
-                      // showDialog<void>(
-                      //     context: context,
-                      //     builder: (BuildContext context) {
-                      //       return _alertDialogUpdate(data[index]);
-                      //     });
+                      showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return _alertDialogUpdate(data[index]);
+                          });
                     },
-                    icon: const Icon(Icons.edit)),
+                    icon: Icon(Icons.edit)),
                 IconButton(
                     onPressed: () {
                       showDialog<void>(
@@ -265,7 +324,7 @@ class _PelanggaranPageState extends State<PelanggaranPage> {
                             return _alertDialogDelete(data[index]);
                           });
                     },
-                    icon: const Icon(Icons.delete)),
+                    icon: Icon(Icons.delete)),
               ],
             ),
           );

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:new_selinap/app_theme.dart';
 import 'package:new_selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
@@ -14,6 +15,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
