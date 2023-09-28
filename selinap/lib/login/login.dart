@@ -145,7 +145,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           return null;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       //TextFormField untuk Password
@@ -179,7 +179,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           return null;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       // Button Login
@@ -198,24 +198,24 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          FitnessAppHomeScreen(),
+                                          const FitnessAppHomeScreen(),
                                     ),
                                   );
                                 } else {
-                                  final snackBar = SnackBar(
+                                  const snackBar = SnackBar(
                                     content:
-                                        const Text('Username/Password Salah'),
+                                        Text('Username/Password Salah'),
                                   );
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
                                 }
                               }
                             },
-                            style: ButtonStyle(
+                            style: const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll<Color>(
-                                  const Color.fromRGBO(20, 118, 186, 1)),
+                                  Color.fromRGBO(20, 118, 186, 1)),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Login',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
@@ -223,7 +223,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],

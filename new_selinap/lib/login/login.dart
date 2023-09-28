@@ -19,8 +19,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController ctrlUsername = TextEditingController(text: 'guru');
-  TextEditingController ctrlPassword = TextEditingController(text: 'smk');
+  TextEditingController ctrlUsername = TextEditingController();
+  TextEditingController ctrlPassword = TextEditingController();
   final local = UserLocal();
 
   AnimationController? _controller;

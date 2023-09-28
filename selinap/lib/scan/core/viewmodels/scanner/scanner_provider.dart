@@ -46,15 +46,15 @@ class ScannerProvider extends ChangeNotifier {
       Provider.of<ScannerProvider>(context, listen: false);
 
   void scan(ImageSource source) async {
-    final _picker = ImagePicker();
-    final XFile? _xImage =
-        await _picker.pickImage(source: source, imageQuality: 100);
-    if (_xImage != null) {
+    final picker = ImagePicker();
+    final XFile? xImage =
+        await picker.pickImage(source: source, imageQuality: 100);
+    if (xImage != null) {
       /// For iOS it will have some issue in image,
       /// so we rotating the image to get fixed
       _image = Platform.isIOS
-          ? await FlutterExifRotation.rotateImage(path: _xImage.path)
-          : File(_xImage.path);
+          ? await FlutterExifRotation.rotateImage(path: xImage.path)
+          : File(xImage.path);
 
       /// Start recognize image result
       recognizeImage();
@@ -82,12 +82,12 @@ class ScannerProvider extends ChangeNotifier {
     /// Finding matching value with NIK pattern and store to list
     for (TextBlock block in text!.blocks) {
       for (TextLine line in block.lines) {
-        String _text = line.text.trim().replaceAll(" ", "");
-        if (regEx.hasMatch(_text)) {
+        String text0 = line.text.trim().replaceAll(" ", "");
+        if (regEx.hasMatch(text0)) {
           /// Parsing raw text and find NIK Informations
-          var _result = await parse(regEx.stringMatch(_text)!);
-          if (_result != null) {
-            _nik?.add(_result);
+          var result = await parse(regEx.stringMatch(text0)!);
+          if (result != null) {
+            _nik?.add(result);
           }
 
           for (TextElement element in line.elements) {
@@ -131,7 +131,7 @@ class ScannerProvider extends ChangeNotifier {
     if (_nik != null && _nik!.isNotEmpty) {
       String? text = "";
       for (var _item in _nik!) {
-        text = text! + "${_item?.nik}\n";
+        text = "${text!}${_item?.nik}\n";
       }
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

@@ -23,8 +23,8 @@ class TitleView extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
           opacity: animation!,
-          child: new Transform(
-            transform: new Matrix4.translationValues(
+          child: Transform(
+            transform: Matrix4.translationValues(
                 0.0, 30 * (1.0 - animation!.value), 0.0),
             child: Container(
               child: Padding(
@@ -35,7 +35,7 @@ class TitleView extends StatelessWidget {
                       child: Text(
                         titleTxt,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: FitnessAppTheme.fontName,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -46,7 +46,7 @@ class TitleView extends StatelessWidget {
                     ),
                     InkWell(
                       highlightColor: Colors.transparent,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -63,7 +63,7 @@ class TitleView extends StatelessWidget {
                             Text(
                               subTxt,
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: FitnessAppTheme.fontName,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 16,
@@ -71,7 +71,7 @@ class TitleView extends StatelessWidget {
                                 color: FitnessAppTheme.nearlyDarkBlue,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 38,
                               width: 26,
                               child: Icon(
