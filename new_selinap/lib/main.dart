@@ -1,13 +1,14 @@
 import 'dart:io';
-import 'dart:ui';
-import 'package:get_storage/get_storage.dart';
-import 'package:provider/provider.dart';
-import 'package:new_selinap/app_theme.dart';
-import 'package:new_selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
-import 'package:new_selinap/splash_page.dart';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:get_storage/get_storage.dart';
+import 'package:new_selinap/app_theme.dart';
+import 'package:new_selinap/laporan_page.dart';
+import 'package:new_selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
+import 'package:new_selinap/splash_page.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,10 @@ class MyApp extends StatelessWidget {
           textTheme: AppTheme.textTheme,
           platform: TargetPlatform.iOS,
         ),
-        home: const SplashPage(),
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/laporan': (_) => const LaporanPage(),
+        },
       ),
     );
   }
