@@ -4,25 +4,25 @@ import 'package:selinap/const.dart';
 class PiketDialog extends StatefulWidget {
   const PiketDialog({super.key});
 
-
   @override
   State<PiketDialog> createState() => _PiketDialogState();
 }
 
 class _PiketDialogState extends State<PiketDialog> {
   TextEditingController ctrlKeterangan = TextEditingController();
-    TextEditingController ctrlJenisPel = TextEditingController();
+  TextEditingController ctrlJenisPel = TextEditingController();
 
-    // Initial Selected Value
+  // Initial Selected Value
   String dropdownvalue = 'Pilih Pelanggaran';
 
   // List of items in our dropdown menu
-  var  uri = Uri.parse('$BaseURL/pelanggaran/search.php');
- 
-   
+  var uri = Uri.parse('$BaseURL/pelanggaran/search.php');
+
+  get items => null;
+
   @override
   Widget build(BuildContext context) {
- return AlertDialog(
+    return AlertDialog(
       title: Text('Tambah Data'),
       content: SingleChildScrollView(
         child: Column(
@@ -62,15 +62,15 @@ class _PiketDialogState extends State<PiketDialog> {
               height: 10,
             ),
 
-            Text("Point"), Text("18"),
-         //   TextField(
-        //      controller: ctrlPoint,
-              // // keyboardType: TextInputType.number,
-              // decoration: const InputDecoration(
-              //   label: Text('Point Pelanggaran'),
-              // ),
-           // ),
-        
+            // Text("Point"), Text("18"),
+            //   TextField(
+            //      controller: ctrlPoint,
+            // // keyboardType: TextInputType.number,
+            // decoration: const InputDecoration(
+            //   label: Text('Point Pelanggaran'),
+            // ),
+            // ),
+
             SizedBox(
               height: 20,
             ),
@@ -88,7 +88,5 @@ class _PiketDialogState extends State<PiketDialog> {
         ),
       ],
     );
-
-    
   }
 }
