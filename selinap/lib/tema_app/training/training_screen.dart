@@ -1,5 +1,5 @@
-import 'package:selinap/tema_app/ui_view/area_list_view.dart';
-import 'package:selinap/tema_app/ui_view/running_view.dart';
+import 'package:selinap/database/user_local.dart';
+import 'package:selinap/login/login.dart';
 import 'package:selinap/tema_app/ui_view/title_view.dart';
 import 'package:selinap/tema_app/ui_view/workout_view.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ class _TrainingScreenState extends State<TrainingScreen>
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
+  final local = UserLocal();
 
   @override
   void initState() {
@@ -60,12 +61,12 @@ class _TrainingScreenState extends State<TrainingScreen>
 
     listViews.add(
       TitleView(
-        titleTxt: 'Your program',
-        subTxt: 'Details',
+        titleTxt: 'Profil Anda',
+        subTxt: 'Guru SMK Bersama',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 0, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -74,41 +75,32 @@ class _TrainingScreenState extends State<TrainingScreen>
       WorkoutView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
     listViews.add(
-      RunningView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Area of focus',
-        subTxt: 'more',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    listViews.add(
-      AreaListView(
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: const Interval((1 / count) * 5, 1.0,
-                    curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController!,
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 25),
+        height: 75,
+        child: ElevatedButton(
+            onPressed: () async {
+              await local.logOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (_) => Login(),
+                ),
+                (route) => false,
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.exit_to_app),
+                Text("Logout"),
+              ],
+            )),
       ),
     );
   }
@@ -207,7 +199,7 @@ class _TrainingScreenState extends State<TrainingScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Training',
+                                  'Profil Guru',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: FitnessAppTheme.fontName,

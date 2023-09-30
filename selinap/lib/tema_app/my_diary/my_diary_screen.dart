@@ -1,9 +1,11 @@
 import 'package:intl/intl.dart';
 //import 'package:selinap/tema_app/ui_view/body_measurement.dart';
-import 'package:selinap/tema_app/ui_view/area_list_view.dart';
+//import 'package:selinap/tema_app/ui_view/area_list_view.dart';
 //import 'package:selinap/tema_app/ui_view/glass_view.dart';
 import 'package:selinap/tema_app/ui_view/mediterranean_diet_view.dart';
 import 'package:selinap/tema_app/ui_view/running_view.dart';
+import 'package:selinap/tema_app/ui_view/tambah_ketegori_poin.dart';
+import 'package:selinap/tema_app/ui_view/tambah_poin.dart';
 import 'package:selinap/tema_app/ui_view/title_view.dart';
 import 'package:selinap/tema_app/fitness_app_theme.dart';
 //import 'package:selinap/tema_app/my_diary/meals_list_view.dart';
@@ -67,11 +69,12 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     listViews.add(
       TitleView(
         titleTxt: 'Laporan Hari Ini',
-        subTxt: 'Lihat',
+        
+        //subTxt: 'Profil',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 0, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -79,8 +82,8 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
       MediterranesnDietView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 1, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -101,22 +104,40 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
       RunningView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                const Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 3, 1.0,
+                curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      TambahPoin(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: const Interval((1 / count) * 3, 1.0,
+                curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      TambahKategoriPoin(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: const Interval((1 / count) * 3, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
 
-    listViews.add(
-      AreaListView(
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: const Interval((1 / count) * 5, 1.0,
-                    curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController!,
-      ),
-    );
+    // listViews.add(
+    //   AreaListView(
+    //     mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+    //         CurvedAnimation(
+    //             parent: widget.animationController!,
+    //             curve: const Interval((1 / count) * 5, 1.0,
+    //                 curve: Curves.fastOutSlowIn))),
+    //     mainScreenAnimationController: widget.animationController!,
+    //   ),
+    // );
 
     // listViews.add(
     //   TitleView(

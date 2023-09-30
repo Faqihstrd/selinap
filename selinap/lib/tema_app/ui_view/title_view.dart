@@ -1,3 +1,4 @@
+//import 'package:intl/intl.dart';
 import 'package:selinap/tema_app/fitness_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:selinap/tema_app/training/training_screen.dart';
@@ -46,7 +47,8 @@ class TitleView extends StatelessWidget {
                     ),
                     InkWell(
                       highlightColor: Colors.transparent,
-                      borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -61,6 +63,7 @@ class TitleView extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             Text(
+                              //DateFormat.MMMd().format(tgl),
                               subTxt,
                               textAlign: TextAlign.left,
                               style: const TextStyle(
@@ -74,11 +77,11 @@ class TitleView extends StatelessWidget {
                             const SizedBox(
                               height: 38,
                               width: 26,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                color: FitnessAppTheme.darkText,
-                                size: 18,
-                              ),
+                              // child: Icon(
+                              //   Icons.arrow_forward,
+                              //   color: FitnessAppTheme.darkText,
+                              //   size: 18,
+                              // ),
                             ),
                           ],
                         ),

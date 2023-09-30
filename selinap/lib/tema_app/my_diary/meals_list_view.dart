@@ -191,8 +191,8 @@ class MealsView extends StatelessWidget {
                                         ),
                                       ),
                                       const Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 4, bottom: 3),
+                                        padding:
+                                            EdgeInsets.only(left: 4, bottom: 3),
                                         child: Text(
                                           'kcal',
                                           style: TextStyle(
@@ -223,7 +223,8 @@ class MealsView extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: Icon(
                                         Icons.add,
-                                        color: HexColor(mealsListData!.endColor),
+                                        color:
+                                            HexColor(mealsListData!.endColor),
                                         size: 24,
                                       ),
                                     ),

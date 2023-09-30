@@ -25,14 +25,13 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 2000), vsync: this);
     waveAnimationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
-    animationController!
-      .addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          animationController?.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          animationController?.forward();
-        }
-      });
+    animationController!.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        animationController?.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        animationController?.forward();
+      }
+    });
     waveAnimationController!.addListener(() {
       animList1.clear();
       for (int i = -2 - bottleOffset1.dx.toInt(); i <= 60 + 2; i++) {
@@ -170,7 +169,8 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                 alignment: Alignment.center,
                 scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                     parent: animationController!,
-                    curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn))),
+                    curve:
+                        const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn))),
                 child: Container(
                   width: 2,
                   height: 2,
@@ -189,7 +189,8 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                 alignment: Alignment.center,
                 scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                     parent: animationController!,
-                    curve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn))),
+                    curve:
+                        const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn))),
                 child: Container(
                   width: 4,
                   height: 4,
@@ -208,7 +209,8 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                 alignment: Alignment.center,
                 scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                     parent: animationController!,
-                    curve: const Interval(0.6, 0.8, curve: Curves.fastOutSlowIn))),
+                    curve:
+                        const Interval(0.6, 0.8, curve: Curves.fastOutSlowIn))),
                 child: Container(
                   width: 3,
                   height: 3,

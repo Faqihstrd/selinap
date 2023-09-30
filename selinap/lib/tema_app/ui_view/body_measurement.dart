@@ -47,8 +47,8 @@ class BodyMeasurementView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Padding(
-                            padding: EdgeInsets.only(
-                                left: 4, bottom: 8, top: 16),
+                            padding:
+                                EdgeInsets.only(left: 4, bottom: 8, top: 16),
                             child: Text(
                               'Weight',
                               textAlign: TextAlign.center,
@@ -69,8 +69,8 @@ class BodyMeasurementView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 4, bottom: 3),
+                                    padding:
+                                        EdgeInsets.only(left: 4, bottom: 3),
                                     child: Text(
                                       '206.8',
                                       textAlign: TextAlign.center,
@@ -83,8 +83,8 @@ class BodyMeasurementView extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 8, bottom: 8),
+                                    padding:
+                                        EdgeInsets.only(left: 8, bottom: 8),
                                     child: Text(
                                       'Ibs',
                                       textAlign: TextAlign.center,
@@ -132,8 +132,8 @@ class BodyMeasurementView extends StatelessWidget {
                                     ],
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 4, bottom: 14),
+                                    padding:
+                                        EdgeInsets.only(top: 4, bottom: 14),
                                     child: Text(
                                       'InBody SmartScale',
                                       textAlign: TextAlign.center,

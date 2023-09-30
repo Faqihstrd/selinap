@@ -66,8 +66,8 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 4, bottom: 3),
+                                      padding:
+                                          EdgeInsets.only(left: 4, bottom: 3),
                                       child: Text(
                                         '2100',
                                         textAlign: TextAlign.center,
@@ -80,8 +80,8 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 8, bottom: 8),
+                                      padding:
+                                          EdgeInsets.only(left: 8, bottom: 8),
                                       child: Text(
                                         'ml',
                                         textAlign: TextAlign.center,
@@ -120,8 +120,8 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                 height: 2,
                                 decoration: const BoxDecoration(
                                   color: FitnessAppTheme.background,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(4.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4.0)),
                                 ),
                               ),
                             ),

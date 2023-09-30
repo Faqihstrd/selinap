@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:selinap/database/user_local.dart';
 import 'package:selinap/tema_app/fitness_app_home_screen.dart';
+
+import '../const.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -15,6 +21,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   TextEditingController ctrlUsername = TextEditingController();
   TextEditingController ctrlPassword = TextEditingController();
+  final local = UserLocal();
 
   AnimationController? _controller;
   Animation<double>? _animacaoBlur;
@@ -24,6 +31,44 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   late bool _passwordVisible;
   String username = 'guru';
   String password = 'smk';
+
+  Future<void> login() async {
+    http.Response rest;
+    var url = "$BaseURL/login.php";
+    rest = await http.post(Uri.parse(url), body: {
+      "username": ctrlUsername.text,
+      "password": ctrlPassword.text,
+    });
+    var data = json.decode(rest.body);
+    if (rest.statusCode == 200) {
+      if (data['error'] == false) {
+        await local.saveData(data['data']);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => const FitnessAppHomeScreen(),
+          ),
+          (route) => false,
+        );
+      } else {
+        Fluttertoast.showToast(
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          msg: data['message'],
+          toastLength: Toast.LENGTH_SHORT,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: data['message'],
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+  }
 
   @override
   void initState() {
@@ -186,29 +231,32 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       SizedBox(
                         width: double.infinity,
                         height: 50,
-                        child: Container(
+                        child: SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 // Kode ketika form sudah terisi
-                                if (ctrlUsername.text == username &&
-                                    ctrlPassword.text == password) {
-                                  // Navigator.pushNamed(context, '/mainmenu');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const FitnessAppHomeScreen(),
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => WillPopScope(
+                                    onWillPop: () async => false,
+                                    child: AlertDialog(
+                                      content: Container(
+                                        height: 300,
+                                        width: 300,
+                                        alignment: Alignment.center,
+                                        child: const SizedBox(
+                                          height: 100,
+                                          width: 100,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 12,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  );
-                                } else {
-                                  const snackBar = SnackBar(
-                                    content:
-                                        Text('Username/Password Salah'),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
+                                  ),
+                                );
+                                login();
                               }
                             },
                             style: const ButtonStyle(

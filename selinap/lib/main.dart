@@ -1,16 +1,16 @@
 import 'dart:io';
 
-// import 'package:selinap/scan/ui/screens/home/home_screen.dart';
-
-import 'package:provider/provider.dart';
-import 'package:selinap/app_theme.dart';
-import 'package:selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
-import 'package:selinap/splash_page.dart';
-import 'package:selinap/tema_app/fitness_app_home_screen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:ui';
+import 'package:get_storage/get_storage.dart';
+import 'package:selinap/app_theme.dart';
+import 'package:selinap/laporan_page.dart';
+import 'package:selinap/pelajar_page.dart';
+import 'package:selinap/pelanggaran_page.dart';
+import 'package:selinap/scan/core/viewmodels/scanner/scanner_provider.dart';
+import 'package:selinap/splash_page.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +18,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -45,7 +46,12 @@ class MyApp extends StatelessWidget {
           textTheme: AppTheme.textTheme,
           platform: TargetPlatform.iOS,
         ),
-        home: const SplashPage(),
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/laporan': (_) => const LaporanPage(),
+          '/pelajar': (_) => const PelajarPage(),
+          '/pelanggaran': (_) => const PelanggaranPage(),
+        },
       ),
     );
   }

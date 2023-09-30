@@ -295,7 +295,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'Jumlah Pelanggaran',
+                                            'Jumlah \n Pelanggaran',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily:
@@ -354,7 +354,7 @@ class MediterranesnDietView extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            'Rekap Kategori Pelanggaran',
+                            'Kategori Pelanggaran',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: FitnessAppTheme.fontName,
@@ -385,8 +385,7 @@ class MediterranesnDietView extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16,
                                     letterSpacing: -0.2,
-                                    color:
-                                        Color.fromARGB(255, 64, 37, 37),
+                                    color: Color.fromARGB(255, 64, 37, 37),
                                   ),
                                 ),
                                 Padding(
@@ -412,8 +411,9 @@ class MediterranesnDietView extends StatelessWidget {
                                               HexColor('#87A0E5')
                                                   .withOpacity(0.5),
                                             ]),
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(4.0)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(4.0)),
                                           ),
                                         )
                                       ],
@@ -481,8 +481,9 @@ class MediterranesnDietView extends StatelessWidget {
                                                       .withOpacity(0.1),
                                                   HexColor('#F56E98'),
                                                 ]),
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(4.0)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(4.0)),
                                               ),
                                             ),
                                           ],
@@ -552,8 +553,9 @@ class MediterranesnDietView extends StatelessWidget {
                                                       .withOpacity(0.1),
                                                   HexColor('#F1B440'),
                                                 ]),
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(4.0)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(4.0)),
                                               ),
                                             ),
                                           ],

@@ -21,7 +21,6 @@ class _AreaListViewState extends State<AreaListView>
   AnimationController? animationController;
   List<String> areaListData = <String>[
     'assets/fitness_app/area1.png',
-    'assets/fitness_app/area2.png',
     'assets/fitness_app/area3.png',
   ];
 
@@ -58,7 +57,7 @@ class _AreaListViewState extends State<AreaListView>
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     mainAxisSpacing: 24.0,
                     crossAxisSpacing: 24.0,
                     //childAspectRatio: 1.0,
