@@ -1,8 +1,10 @@
+import 'package:bluetooth_print/bluetooth_print.dart';
+import 'package:bluetooth_print/bluetooth_print_model.dart';
+import 'package:flutter/material.dart';
 import 'package:selinap/database/user_local.dart';
 import 'package:selinap/login/login.dart';
 import 'package:selinap/tema_app/ui_view/title_view.dart';
 import 'package:selinap/tema_app/ui_view/workout_view.dart';
-import 'package:flutter/material.dart';
 
 import '../fitness_app_theme.dart';
 
@@ -17,6 +19,12 @@ class TrainingScreen extends StatefulWidget {
 class _TrainingScreenState extends State<TrainingScreen>
     with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
+
+  BluetoothPrint bluetoothPrint = BluetoothPrint.instance;
+
+  bool _connected = false;
+  BluetoothDevice? _device;
+  String tips = 'no device connect';
 
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
@@ -54,22 +62,58 @@ class _TrainingScreenState extends State<TrainingScreen>
       }
     });
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => initBluetooth());
+  }
+
+  Future<void> initBluetooth() async {
+    bluetoothPrint.startScan(timeout: Duration(seconds: 4));
+
+    bool isConnected = await bluetoothPrint.isConnected ?? false;
+
+    bluetoothPrint.state.listen((state) {
+      print('******************* cur device status: $state');
+
+      switch (state) {
+        case BluetoothPrint.CONNECTED:
+          setState(() {
+            _connected = true;
+            tips = 'connect success';
+          });
+          break;
+        case BluetoothPrint.DISCONNECTED:
+          setState(() {
+            _connected = false;
+            tips = 'disconnect success';
+          });
+          break;
+        default:
+          break;
+      }
+    });
+
+    if (!mounted) return;
+
+    if (isConnected) {
+      setState(() {
+        _connected = true;
+      });
+    }
   }
 
   void addAllListData() {
     const int count = 5;
 
-    listViews.add(
-      TitleView(
-        titleTxt: 'Profil Anda',
-        subTxt: 'Guru SMK Bersama',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: const Interval((1 / count) * 0, 1.0,
-                curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
+    // listViews.add(
+    //   TitleView(
+    //     titleTxt: 'Your program',
+    //     subTxt: 'Details',
+    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //         parent: widget.animationController!,
+    //         curve: const Interval((1 / count) * 0, 1.0,
+    //             curve: Curves.fastOutSlowIn))),
+    //     animationController: widget.animationController!,
+    //   ),
+    // );
 
     listViews.add(
       WorkoutView(
@@ -80,27 +124,150 @@ class _TrainingScreenState extends State<TrainingScreen>
         animationController: widget.animationController!,
       ),
     );
+
+    // listViews.add(
+    //   Container(
+    //     margin: EdgeInsets.symmetric(horizontal: 25),
+    //     height: 75,
+    //     child: ElevatedButton(
+    //         onPressed: () async {
+    //           await local.logOut();
+    //           Navigator.of(context).pushAndRemoveUntil(
+    //             MaterialPageRoute(
+    //               builder: (_) => Login(),
+    //             ),
+    //             (route) => false,
+    //           );
+    //         },
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //           children: [
+    //             Icon(Icons.exit_to_app),
+    //             Text("Logout"),
+    //           ],
+    //         )),
+    //   ),
+    // );
+
     listViews.add(
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 25),
-        height: 75,
-        child: ElevatedButton(
-            onPressed: () async {
-              await local.logOut();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (_) => Login(),
-                ),
-                (route) => false,
-              );
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(Icons.exit_to_app),
-                Text("Logout"),
-              ],
-            )),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Text(tips),
+          ),
+        ],
+      ),
+    );
+    listViews.add(
+      StreamBuilder<List<BluetoothDevice>>(
+        stream: bluetoothPrint.scanResults,
+        initialData: [],
+        builder: (c, snapshot) => Column(
+          children: snapshot.data!
+              .map((d) => ListTile(
+                    title: Text(d.name ?? ''),
+                    subtitle: Text(d.address ?? ''),
+                    onTap: () async {
+                      setState(() {
+                        _device = d;
+                      });
+                    },
+                    trailing: _device != null && _device!.address == d.address
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                        : null,
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+    listViews.add(
+      StreamBuilder<List<BluetoothDevice>>(
+        stream: bluetoothPrint.scanResults,
+        initialData: [],
+        builder: (c, snapshot) => Column(
+          children: snapshot.data!
+              .map((d) => ListTile(
+                    title: Text(d.name ?? ''),
+                    subtitle: Text(d.address ?? ''),
+                    onTap: () async {
+                      setState(() {
+                        _device = d;
+                      });
+                    },
+                    trailing: _device != null && _device!.address == d.address
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                        : null,
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+    listViews.add(
+      Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            OutlinedButton(
+              child: Text('connect'),
+              onPressed: _connected
+                  ? null
+                  : () async {
+                      if (_device != null && _device!.address != null) {
+                        setState(() {
+                          tips = 'connecting...';
+                        });
+                        await bluetoothPrint.connect(_device!);
+                      } else {
+                        setState(() {
+                          tips = 'please select device';
+                        });
+                        print('please select device');
+                      }
+                    },
+            ),
+            SizedBox(width: 10.0),
+            OutlinedButton(
+              child: Text('disconnect'),
+              onPressed: _connected
+                  ? () async {
+                      setState(() {
+                        tips = 'disconnecting...';
+                      });
+                      await bluetoothPrint.disconnect();
+                    }
+                  : null,
+            ),
+          ],
+        ),
+      ),
+    );
+    listViews.add(
+      StreamBuilder<bool>(
+        stream: bluetoothPrint.isScanning,
+        initialData: false,
+        builder: (c, snapshot) {
+          if (snapshot.data == true) {
+            return FloatingActionButton(
+              child: Icon(Icons.stop),
+              onPressed: () => bluetoothPrint.stopScan(),
+              backgroundColor: Colors.red,
+            );
+          } else {
+            return FloatingActionButton(
+                child: Icon(Icons.search),
+                onPressed: () =>
+                    bluetoothPrint.startScan(timeout: Duration(seconds: 4)));
+          }
+        },
       ),
     );
   }
@@ -199,12 +366,12 @@ class _TrainingScreenState extends State<TrainingScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Profil Guru',
+                                  'Profil Anda',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: FitnessAppTheme.fontName,
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
+                                    fontSize: 15 + 6 - 6 * topBarOpacity,
                                     letterSpacing: 1.2,
                                     color: FitnessAppTheme.darkerText,
                                   ),

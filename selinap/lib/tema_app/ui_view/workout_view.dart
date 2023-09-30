@@ -1,8 +1,10 @@
+import 'package:selinap/database/user_local.dart';
+import 'package:selinap/login/login.dart';
 import 'package:selinap/main.dart';
 import 'package:flutter/material.dart';
 import '../fitness_app_theme.dart';
 
-class WorkoutView extends StatelessWidget {
+class WorkoutView extends StatefulWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -10,15 +12,22 @@ class WorkoutView extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<WorkoutView> createState() => _WorkoutViewState();
+}
+
+class _WorkoutViewState extends State<WorkoutView> {
+  final local = UserLocal();
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: animationController!,
+      animation: widget.animationController!,
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
-          opacity: animation!,
+          opacity: widget.animation!,
           child: Transform(
             transform: Matrix4.translationValues(
-                0.0, 30 * (1.0 - animation!.value), 0.0),
+                0.0, 30 * (1.0 - widget.animation!.value), 0.0),
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 16, bottom: 18),
@@ -35,7 +44,8 @@ class WorkoutView extends StatelessWidget {
                       topRight: Radius.circular(68.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                        color: FitnessAppTheme.grey.withOpacity(0.6),
+                        color: const Color.fromARGB(240, 58, 81, 96)
+                            .withOpacity(0.6),
                         offset: const Offset(1.1, 1.1),
                         blurRadius: 10.0),
                   ],
@@ -65,7 +75,7 @@ class WorkoutView extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: FitnessAppTheme.fontName,
                             fontWeight: FontWeight.normal,
-                            fontSize: 20,
+                            fontSize: 15,
                             letterSpacing: 0.0,
                             color: FitnessAppTheme.white,
                           ),
@@ -117,12 +127,23 @@ class WorkoutView extends StatelessWidget {
                                       blurRadius: 8.0),
                                 ],
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(0.0),
-                                child: Icon(
-                                  Icons.arrow_right,
-                                  color: HexColor("#6F56E8"),
-                                  size: 44,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await local.logOut();
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (_) => Login(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.10),
+                                  child: Icon(
+                                    Icons.logout_rounded,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    size: 30,
+                                  ),
                                 ),
                               ),
                             )

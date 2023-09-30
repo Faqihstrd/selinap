@@ -295,7 +295,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'Jumlah \n Pelanggaran',
+                                            'Total Poin',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily:
