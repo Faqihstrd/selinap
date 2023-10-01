@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:selinap/const.dart';
@@ -32,7 +31,9 @@ class _LaporanPageState extends State<LaporanPage> {
   Future getData(String search) async {
     http.Response response;
     var uri = Uri.parse('$BaseURL/point/laporan.php');
-    response = await http.get(uri);
+    response = await http.post(uri, body: {
+      "search": search,
+    });
     if (response.statusCode == 200) {
       List decode = json.decode(response.body);
       data = decode.map((e) => LaporanModel.fromMap(e)).toList();
@@ -47,16 +48,16 @@ class _LaporanPageState extends State<LaporanPage> {
     }
   }
 
-  void filterData(String query) {
-    setState(() {
-      data = data
-          .where((item) => item.namaPelajar
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList();
-    });
-  }
+  // void filterData(String query) {
+  //   setState(() {
+  //     data = data
+  //         .where((item) => item.namaPelajar
+  //             .toString()
+  //             .toLowerCase()
+  //             .contains(query.toLowerCase()))
+  //         .toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +72,11 @@ class _LaporanPageState extends State<LaporanPage> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Pencarian siswa',
               ),
               onSubmitted: (value) {
-                filterData(value);
+                getData(value);
               },
             ),
           ),
@@ -108,7 +109,12 @@ class _LaporanPageState extends State<LaporanPage> {
                       Text(data[index].poinPelanggaran ?? ''),
                       TextButton.icon(
                         onPressed: () {
-                          Get.to(PrintBt(data[index].namaPelajar ?? ""));
+                          // Get.to(PrintBt(data[index].namaPelajar ?? ""));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrintBt(data[index]),
+                              ));
                         },
                         icon: const Icon(Icons.print),
                         label: const Text(''),

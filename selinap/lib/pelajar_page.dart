@@ -43,16 +43,16 @@ class _PelajarPageState extends State<PelajarPage> {
     }
   }
 
-  void filterData(String query) {
-    setState(() {
-      data = data
-          .where((item) => item['nama_pelajar']
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList();
-    });
-  }
+  // void filterData(String query) {
+  //   setState(() {
+  //     data = data
+  //         .where((item) => item['nama_pelajar']
+  //             .toString()
+  //             .toLowerCase()
+  //             .contains(query.toLowerCase()))
+  //         .toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +67,11 @@ class _PelajarPageState extends State<PelajarPage> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Pencarian siswa',
               ),
               onSubmitted: (value) {
-                filterData(value);
+                getData(value);
               },
             ),
           ),

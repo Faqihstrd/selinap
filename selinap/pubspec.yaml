@@ -48,6 +48,8 @@ dependencies:
   equatable: ^2.0.5
   flutter_launcher_icons: ^0.13.1
   bluetooth_print: ^4.3.0
+  smart_bluetooth_pos_printer: ^1.0.1
+  esc_pos_utils: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +62,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+dependency_overrides: 
+  image: ^3.0.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
